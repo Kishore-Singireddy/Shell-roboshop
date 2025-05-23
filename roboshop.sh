@@ -8,7 +8,7 @@ INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipp
 for instance in ${INSTANCES[@]}
 do
 
-    INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t2.micro --security-group-ids sg-06e1b399be05bca65 --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instance[0].InstanceID" --output text)
+    INSTANCE_ID=$(aws ec2 run-instances --image-id ami-09c813fb71547fc4f --instance-type t2.micro --security-group-ids sg-06e1b399be05bca65 --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instance}]" --query "Instance[0].InstanceId" --output text)
 
     if [ $instance != "frontend" ]
     then
