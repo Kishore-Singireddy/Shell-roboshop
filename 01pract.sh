@@ -9,7 +9,7 @@ for instances in ${INSTANCES[@]}
 
 do
 
-INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro --security-group-ids sg-06e1b399be05bca65 --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instances}]" --query "Instances[0].InstanceId" --output text)
+INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instances}]" --query "Instances[0].InstanceId" --output text)
 
 #echo "$instances = $INSTANCE_ID"
 
@@ -18,8 +18,8 @@ INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro 
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
     else
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIPpAddress" --output text)
+    fi
 
     echo " This is the $instances ip address $IP "
-    fi
 done
 
