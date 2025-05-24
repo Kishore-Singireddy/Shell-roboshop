@@ -17,7 +17,7 @@ INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro 
     then
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
     else
-        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIPpAddress" --output text)
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIpAddress" --output text)
     fi
 
     echo " This is the $instances ip address $IP "
