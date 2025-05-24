@@ -20,6 +20,6 @@ INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro 
         IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIPpAddress" --output text)
 
     echo " This is the $instances ip address $IP "
-    if
+    fi
 done
 
