@@ -20,7 +20,7 @@ do
     aws ec2 terminate-instances --instance-id $instances_id
     INSTANCES_COUNT=${#instances_id[@]}
     echo $INSTANCES_COUNT
-    if [ $INSTANCES_COUNT -eq 0 ]
+    if [ $INSTANCES_COUNT == 0 ]
     then
         echo "All running instances are deleted"
     else 
