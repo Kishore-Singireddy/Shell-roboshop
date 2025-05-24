@@ -8,6 +8,6 @@ INSTANCES=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shippi
 for instances in ${INSTANCES[@]}
 do
     echo " This is instances - $instances "
-    echo " This is INSTANCES - $INSTANCES "
+    echo " This is INSTANCES - ${INSTANCES[@]} "
 done
 
