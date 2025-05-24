@@ -18,6 +18,8 @@ INSTANCES_ID=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].
 for instances_id in ${INSTANCES_ID[@]}
 do
     
-    INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $INSTANCES_ID --query "Reservations[0].Instances[0].Name" --output text)
+    INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $INSTANCES_ID --query 'Reservations[*].Instances[*].Tags' --output text)
+
+    echo "$INSTANCE_NAME"
     echo "$INSTANCES_ID - $INSTANCE_NAME"
 done
