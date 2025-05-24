@@ -17,9 +17,19 @@ INSTANCES_NM=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shi
 INSTANCES_ID=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text)
 for instances_id in ${INSTANCES_ID[@]}
 do
-    
-    INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $INSTANCES_ID --query 'Reservations[*].Instances[*].Tags' --output text)
+    delete-instance --instance-id $instances_id
+    INSTANCES_COUNT=${instances_id[@]}
+    if [ $INSTANCES_COUNT -et 0 ]
+    then
+        echo "All running instances are deleted"
+    else 
+        INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $instances_id --query 'Reservations[*].Instances[*].Tags' --output text)
+        ONLY_INSTANCE_NAME=$(echo $INSTANCE_NAME | awk -F " " '{print $2F}')
+        echo "Deleting $ONLY_INSTANCE_NAME "
 
-    ONLY_INSTANCE_NAME=$(echo $INSTANCE_NAME | awk -F " " '{print $2F}')
+    fi
+
+   
     echo "$INSTANCES_ID - $ONLY_INSTANCE_NAME"
+    delete-instance --instance-id $instances_id
 done
