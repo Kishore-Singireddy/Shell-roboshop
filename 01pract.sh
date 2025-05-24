@@ -8,15 +8,17 @@ INSTANCES=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shippi
 for instances in ${INSTANCES[@]}
 
 do
+
 INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro --security-group-ids sg-06e1b399be05bca65 --tag-specifications "ResourceType=instance,Tags=[{Key=Name, Value=$instances}]" --query "Instances[0].InstanceId" --output text)
 
 echo "$instances = $INSTANCE_ID"
 
-    # if [ $instance != "frontend" ]
-    # then
-    #     IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
+    if [ $instances != "frontend" ]
+    then
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PrivateIpAddress" --output text)
+    else
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID --query "Reservations[0].Instances[0].PublicIPpAddress" --output text)
 
-    # echo " This is instances - $instances "
-    # echo " This is INSTANCES - ${INSTANCES[@]} "
+    echo " This is the $instances ip address $IP "
 done
 
