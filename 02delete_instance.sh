@@ -20,6 +20,6 @@ do
     
     INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $INSTANCES_ID --query 'Reservations[*].Instances[*].Tags' --output text)
 
-    echo "$INSTANCE_NAME"
-    echo "$INSTANCES_ID - $INSTANCE_NAME"
+    ONLY_INSTANCE_NAME=$(echo "$INSTANCE_NAME" | awk -F " " '{print $1F}'
+    echo "$INSTANCES_ID - $ONLY_INSTANCE_NAME"
 done
