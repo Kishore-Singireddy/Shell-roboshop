@@ -15,7 +15,10 @@ INSTANCES_NM=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shi
 #Query to list all the running ec2 instances - gives the instance ids
 
 INSTANCES_ID=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text)
+echo "${INSTANCES_ID[@]}"
+
 INSTANCES_COUNT=${#INSTANCES_ID[@]}
+echo $INSTANCES_COUNT
 
 if [ $INSTANCES_COUNT != 0 ]
 then
