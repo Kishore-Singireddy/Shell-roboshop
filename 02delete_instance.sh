@@ -15,22 +15,26 @@ INSTANCES_NM=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shi
 #Query to list all the running ec2 instances - gives the instance ids
 
 INSTANCES_ID=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text)
-for instances_id in ${INSTANCES_ID[@]}
-do
-    aws ec2 terminate-instances --instance-id $instances_id
-    INSTANCES_COUNT=${#instances_id[@]}
-    echo $INSTANCES_COUNT
-    if [ $INSTANCES_COUNT == 0 ]
-    then
-        echo "All running instances are deleted"
-    else 
-        INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $instances_id --query 'Reservations[*].Instances[*].Tags' --output text)
-        ONLY_INSTANCE_NAME=$(echo $INSTANCE_NAME | awk -F " " '{print $2F}')
-        echo "Deleting $ONLY_INSTANCE_NAME "
+INSTANCES_COUNT=${#INSTANCES_ID[@]}
 
-    fi
+if [ $INSTANCES_COUNT != 0 ]
+then
+    for instances_id in ${INSTANCES_ID[@]}
+    do
+        aws ec2 terminate-instances --instance-id $instances_id
+        REM_INSTANCES_COUNT=$($INSTANCES_COUNT -1)
+        echo $REM_INSTANCES_COUNT
+        # if [ $REM_INSTANCES_COUNT == 0 ]
+        # then
+        #     echo "All running instances are deleted"
+        # else 
+        #     INSTANCE_NAME=$(aws ec2 describe-instances --instance-ids $instances_id --query 'Reservations[*].Instances[*].Tags' --output text)
+        #     ONLY_INSTANCE_NAME=$(echo $INSTANCE_NAME | awk -F " " '{print $2F}')
+        #     echo "Deleting $ONLY_INSTANCE_NAME "
 
-   
-    echo "$INSTANCES_ID - $ONLY_INSTANCE_NAME"
+        # fi  
     
-done
+    done
+else
+    echo "All running instances are deleted"
+fi
