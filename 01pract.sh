@@ -21,5 +21,7 @@ INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t2.micro 
     fi
 
     echo " This is the $instances ip address $IP "
-done
 
+done
+INSTANCES_COUNT=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text | wc -l)
+echo "The number of Instances currently running are $INSTANCES_COUNT "
