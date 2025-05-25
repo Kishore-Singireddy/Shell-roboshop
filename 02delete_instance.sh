@@ -15,10 +15,10 @@ INSTANCES_NM=("mongodb" "redis" "mysql" "rabitmq" "catalogue" "user" "cart" "shi
 #Query to list all the running ec2 instances - gives the instance ids
 
 INSTANCES_ID=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].[InstanceId]' --filters Name=instance-state-name,Values=running --output text)
-echo "${INSTANCES_ID[@]}"
+echo "These are Instances IDs : ${INSTANCES_ID[@]}"
 
 INSTANCES_COUNT=${#INSTANCES_ID[@]}
-echo $INSTANCES_COUNT
+echo " This is the instance count $INSTANCES_COUNT "
 
 if [ $INSTANCES_COUNT != 0 ]
 then
@@ -26,7 +26,7 @@ then
     do
         aws ec2 terminate-instances --instance-id $instances_id
         REM_INSTANCES_COUNT=$($INSTANCES_COUNT -1)
-        echo $REM_INSTANCES_COUNT
+        echo " These are remaining instances $REM_INSTANCES_COUNT "
         # if [ $REM_INSTANCES_COUNT == 0 ]
         # then
         #     echo "All running instances are deleted"
