@@ -24,10 +24,10 @@ if [ $INSTANCES_COUNT != 0 ]
 then
     for instances_id in ${INSTANCES_ID[@]}
     do
-        aws ec2 terminate-instances --instance-id $instances_id --query "Instances[0].InstanceId" --output text
+        DELETED=$(aws ec2 terminate-instances --instance-id $instances_id --query "Instances[0].InstanceId" --output text)
 
         INSTANCES_COUNT=$(($INSTANCES_COUNT -1))
-        echo " These are remaining instances $INSTANCES_COUNT "
+        echo " EC2 Instance $DELETED is deleted , $INSTANCES_COUNT Instances are remaining... "
         # if [ $REM_INSTANCES_COUNT == 0 ]
         # then
         #     echo "All running instances are deleted"
