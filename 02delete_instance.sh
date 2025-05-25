@@ -24,7 +24,7 @@ if [ $INSTANCES_COUNT != 0 ]
 then
     for instances_id in ${INSTANCES_ID[@]}
     do
-        #aws ec2 terminate-instances --instance-id $instances_id
+        aws ec2 terminate-instances --instance-id $instances_id
         REM_INSTANCES_COUNT=$($INSTANCES_COUNT -1)
         echo " These are remaining instances $REM_INSTANCES_COUNT "
         # if [ $REM_INSTANCES_COUNT == 0 ]
