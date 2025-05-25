@@ -18,7 +18,7 @@ INSTANCES_ID=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].
 echo "These are Instances IDs : ${INSTANCES_ID[@]}"
 
 INSTANCES_COUNT=${#INSTANCES_ID[@]}
-echo " This is the instance count $INSTANCES_COUNT "
+echo "This is the instance count $INSTANCES_COUNT "
 
 if [ $INSTANCES_COUNT != 0 ]
 then
