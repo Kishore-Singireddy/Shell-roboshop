@@ -45,12 +45,12 @@ dnf list installed mongodb &>> $LOG_FILE
 
 if [ $? -ne 0 ]
 then 
-    echo -e " Mongodb is not installed - $Y Proceeding to install it $N" tee -a $LOG_FILE
+    echo -e " Mongodb is not installed - $Y Proceeding to install it $N" |tee -a $LOG_FILE
     dnf install mongodb-org -y  &>> $LOG_FILE
     VALIDATE $? "mongodb Installation"
 
 else 
-    echo -e " $G MongoDB is already Installed - No Action required $N " tee -a $LOG_FILE
+    echo -e " $G MongoDB is already Installed - No Action required $N " | tee -a $LOG_FILE
 
 fi
 
