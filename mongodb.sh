@@ -30,7 +30,7 @@ VALIDATE () {
         echo -e " $Y Please check the logs $Y $LOG_FILE $N "
     
     else
-        echo -e " $2 - $R Successful $N "
+        echo -e " $2 - $G Successful $N "
 
     fi
 
@@ -60,10 +60,10 @@ VALIDATE $? "Enabling mongod"
 systemctl start mongod &>> $LOG_FILE
 VALIDATE $? "Starting mongod"
 
-sed -i 's/127.0.0.0/0.0.0.0/g' </etc/mongod.conf &>> $LOG_FILE
-VALIDATE $? "Updating IP in mongod.conf"
+sed -i 's/127.0.0.0/0.0.0.0/g' /etc/mongod.conf &>> $LOG_FILE
+VALIDATE $? "Updating IP "
 
 systemctl start mongod &>> $LOG_FILE
-VALIDATE 4? "Starting mongod" 
+VALIDATE $? "Starting mongod" 
 
 
