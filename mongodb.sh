@@ -36,6 +36,7 @@ VALIDATE () {
 
 }
 
+# Software specific Installations
 cp mongodb.repo /etc/yum.repos.d/mongo.repo  &>> $LOG_FILE
 VALIDATE $? "mongodb repo creation"
 
