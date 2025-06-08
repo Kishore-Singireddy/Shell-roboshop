@@ -5,8 +5,8 @@ ZONE_ID="Z02669663M5NZUABP37AR"
 DOMAIN_NAME="singireddy.shop"
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "frontend")
 
-#for instance in ${INSTANCES[@]}
-for instance in $@
+for instance in ${INSTANCES[@]}
+#for instance in $@
 
 do
 
